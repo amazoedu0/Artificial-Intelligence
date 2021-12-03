@@ -13,10 +13,7 @@ class Graph:
         return 'V: %s\nE: %s' % (self.nodes, self.adj)
 
     def __str__(self):
-        string = ""
-        for node in self.nodes:
-            string += f"{node} -> {self.adj[node]}\n"
-        return string
+        return "".join(f"{node} -> {self.adj[node]}\n" for node in self.nodes)
         
     def add_node(self, n):
         if n not in self.nodes:
@@ -93,24 +90,14 @@ class DWGraph(WGraph):
 
 
 directedWeightedGraph = DWGraph()
-directedWeightedGraph.add_node('A')
-directedWeightedGraph.add_node('B')
-directedWeightedGraph.add_node('C')
-directedWeightedGraph.add_node('D')
-directedWeightedGraph.add_node('E')
-directedWeightedGraph.add_node('F')
-directedWeightedGraph.add_edge('A', 'B', 2)
-directedWeightedGraph.add_edge('A', 'C', 1)
-directedWeightedGraph.add_edge('B', 'C', 2)
-directedWeightedGraph.add_edge('B', 'D', 5)
-directedWeightedGraph.add_edge('C', 'D', 1)
-directedWeightedGraph.add_edge('C', 'F', 3)
-directedWeightedGraph.add_edge('D', 'C', 1)
-directedWeightedGraph.add_edge('D', 'E', 4)
-directedWeightedGraph.add_edge('E', 'F', 3)
-directedWeightedGraph.add_edge('F', 'C', 1)
-directedWeightedGraph.add_edge('F', 'E', 2)
 
+graphNodes = ['A','B','C','D','E','F']
+graphEdges =[('A', 'B', 2),('A', 'C', 1),('B', 'C', 2),('B', 'D', 5),('C', 'D', 1),('C', 'F', 3),('D', 'C', 1),('D', 'E', 4),('E', 'F', 3),('F', 'C', 1),('F', 'E', 2)]
+
+for n in graphNodes:
+    directedWeightedGraph.add_node(n)
+for e in graphEdges:
+    directedWeightedGraph.add_edge(e[0],e[1],e[2])
 
 print(directedWeightedGraph)
 
