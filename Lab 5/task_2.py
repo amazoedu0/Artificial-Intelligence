@@ -18,7 +18,7 @@ class Graph:
         7
         """
         return len(self.nodes)
-
+    
     def traverse(self):
         return 'V: %s\nE: %s' % (self.nodes, self.adj)
 
@@ -31,53 +31,52 @@ class Graph:
         self.adj[u] = self.adj.get(u, []) + [v]
         self.adj[v] = self.adj.get(v, []) + [u]
 
+
     def number_of_nodes(self):
         return len(self.nodes)
 
     def number_of_edges(self):
         return sum(len(l) for _, l in self.adj.items()) // 2
 
-
 class DGraph(Graph):
     def add_edge(self, u, v):
         self.adj[u] = self.adj.get(u, []) + [v]
-
+    
     def dfs(self, node, visited=[]):
         if node not in visited:
             visited.append(node)
         for child in self.adj[node]:
             self.dfs(child, visited)
         return visited
-
+    
     def dfs_maze(self, node, goal, visited=[]):
-        if goal == node:
+        if goal==node:
             visited.append(node)
             return goal
         else:
             visited.append(node)
             for child in self.adj[node]:
                 found = self.dfs_maze(child, goal, visited)
-                if found != None:
+                if found!=None:
                     return goal, visited
-
+    
     def DLS(self, node, goal, depth):
-        if depth == 0 and node == goal:
+        if depth==0 and node==goal:
             return node
-        if depth > 0:
-            if node == goal:
+        if depth>0:
+            if node==goal:
                 return goal
             for child in self.adj[node]:
                 found = self.DLS(child, goal, depth-1)
-                if found == goal:
+                if found==goal:
                     return found
         return None
-
+    
     def IDDFS(self, root, goal):
         for depth in range(10):
             found = self.DLS(root, goal, depth)
-            if found == goal:
+            if found==goal:
                 return found
-
 
 class WGraph(Graph):
     def __init__(self, nodes=None, edges=None):
@@ -95,34 +94,55 @@ class WGraph(Graph):
     def add_edge(self, u, v, w):
         self.adj[u] = self.adj.get(u, []) + [v]
         self.adj[v] = self.adj.get(v, []) + [u]
-        self.weight[(u, v)] = w
-        self.weight[(v, u)] = w
+        self.weight[(u,v)] = w
+        self.weight[(v,u)] = w
 
     def get_weight(self, u, v):
-        return self.weight[(u, v)]
-
+        return self.weight[(u,v)]
 
 class DWGraph(WGraph):
     def add_edge(self, u, v, w):
         self.adj[u] = self.adj.get(u, []) + [v]
-        self.weight[(u, v)] = w
+        self.weight[(u,v)] = w
+    
+    def dfs_Cost(self, node, visited=[], cost=0):
+        if node not in visited:
+            visited.append(node)
+        for child in self.adj[node]:
+            visited, cost = self.dfs_Cost(child, visited, cost+self.get_weight(node, child))
+        return visited, cost
+    
+    def DLS_Cost(self, node, goal, depth, cost=0, visited=[]):
+        if depth==0 and node==goal:
+            visited.append(node)
+            return node, visited, cost
+        if depth>0:
+            if node==goal:
+                return goal, visited, cost
+            for child in self.adj[node]:
+                found, visited, cost = self.DLS_Cost(child, goal, depth-1, cost+self.get_weight(node, child))
+                if found==goal:
+                    return found, visited, cost
+        visited.append(node)
+        return None, visited, cost
+    
+    def IDDFS_Cost(self, root, goal):
+        for depth in range(10):
+            found, visited, cost = self.DLS_Cost(root, goal, depth)
+            if found==goal:
+                return found, visited, cost
+            
+Dw=DWGraph()
+graphNodes=['S','B','A','C']
+graphEdges = [('S','B',5),('S', 'A', 1),('S', 'C', 5)]
 
-
-D = DGraph()
-
-graphNodes = ['A', 'B', 'E', 'M', 'K', 'Q', 'J', 'I', 'R',
-              'N', 'F', 'S', 'O', 'C', 'G', 'T', 'D', 'P', 'H', 'L']
 for n in graphNodes:
-    D.add_node(n)
-
-graphEdges = [('M', 'N'),('I', 'M'),('J', 'N'),('A', 'E'),('A', 'B'),('E', 'I'),('M', 'Q'),('N', 'R'),('F', 'G'),('B', 'F'),('F', 'J'),('C', 'D'),('F', 'J'),('G', 'C'),('G', 'H'),('J', 'K'),('G', 'K'),('K', 'L'),('J', 'N'),('N', 'O'),('O', 'P'),('O', 'S'),('K', 'O'),('P', 'T'),('R', 'S')]
-
+    Dw.add_node(n)
 for e in graphEdges:
-    D.add_edge(e[0],e[1])
+    Dw.add_edge(e[0],e[1],e[2])
 
 print("Depth First Search:")
-print(D.dfs_maze('A', 'T'))
-print("Depth Limited Search:")
-print(D.DLS('A', 'T', 9))
+print(Dw.dfs_Cost('S'))
+
 print("Iterative Deepening Depth First Search:")
-print(D.IDDFS('A', 'T'))
+print(Dw.IDDFS_Cost('S', 'C'))
