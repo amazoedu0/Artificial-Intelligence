@@ -1,72 +1,26 @@
-def add_vertex(a):
+# To import package
+import networkx
 
-    global graph
-
-    global vertices_no
-
-    if a in graph:
-
-        print("Vertex ", a, " already exists.")
-
-    else:
-
-        vertices_no = vertices_no + 1
-
-        graph[a] = []
+# To create an empty undirected graph
+G = networkx.Graph()
 
 
-def add_edge(a1, a2, e):
+nodes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+edges = [(0, 1),(0, 8),(0, 3),(3, 2),(8, 4),(4, 3),(2, 7),(7, 1),(2, 5),(5, 6)]
 
-    global graph
+for n in nodes:
+    G.add_node(n)
 
-    if a1 not in graph:
-
-        print("Vertex ", a1, " does not exist.")
-
-    elif a2 not in graph:
-
-        print("Vertex ", a2, " does not exist.")
-
-    else:
-
-        temp = [a2, e]
-
-        graph[a1].append(temp)
+for u,v in edges:
+    G.add_edge(u,v)
 
 
-def print_graph():
+# To get all the nodes of a graph
+node_list = G.nodes()
+print("#1")
+print(node_list)
 
-    global graph
-
-    for vertex in graph:
-
-        for edges in graph[vertex]:
-
-            print(vertex, " -> ", edges[0])
-
-
-graph = {}
-
-vertices_no = 0
-
-vert = [1, 2, 3, 4, 5, 6, 7]
-edg = [
-    (1, 3, 1),
-    (1, 4, 1),
-    (1, 2, 1),
-    (2, 4, 3),
-    (2, 5, 3),
-    (3, 6, 4),
-    (4, 3, 1),
-    (4, 6, 1),
-    (4, 7, 1),
-    (5, 4, 1),
-    (5, 7, 1),
-    (7, 6, 1)
-]
-for v in vert:
-    add_vertex(v)
-for s,d,v in edg:
-    add_edge(s,d,v)
-
-print_graph()
+# To get all the edges of a graph
+edge_list = G.edges()
+print("#2")
+print(edge_list)
