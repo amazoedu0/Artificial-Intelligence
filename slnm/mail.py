@@ -11,6 +11,7 @@ recovery = driver.find_element_by_xpath('//*[@id="sectionsNav"]/div/div[2]/ul/li
 
 recovery.click()
 
+
 recovery_box = driver.find_element_by_xpath('//*[@id="recoverForm"]/div[1]/div/input')
 
 recovery_box.send_keys(recovery_key)

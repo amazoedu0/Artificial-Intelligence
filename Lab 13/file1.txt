@@ -1,0 +1,24 @@
+Gwadar	    25.1264	    62.3225
+Turbat	    26.0031	    63.0544
+Panjgur	    26.9644	    64.0903
+Dalbandin   28.8885	    64.4062
+Awaran	    26.4568	    65.2314
+Kharan	    28.5833	    65.4167
+Chaman	    30.9210	    66.4597
+Kalat	    29.0258	    66.5900
+Khuzdar	    27.8000	    66.6167
+Uthal	    25.8072	    66.6228
+Khuzdar	    27.7384	    66.6434
+Mastung	    29.7997	    66.8455
+Pishin	    30.5833	    67.0000
+Karachi	    30.1920	    67.0070
+AAYAN       Bhalwal
+ABBAS       Abbottabad
+NADEEM      Ahmadpur East
+ABDULLAH    Aliabad
+ADNAN       Alpurai
+AFAN        Athmuqam
+ANAS        Attock City
+AQIB        Attock Khurd
+ARIF        Awaran
+MOHSIN      Badin

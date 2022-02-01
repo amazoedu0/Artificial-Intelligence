@@ -1,0 +1,12 @@
+----------------------------------------
+          Names       Qualities
+----------------------------------------                
+          name1        quality1
+          name2        quality2
+          name3        quality3
+          name4        quality4
+          name5        quality5
+          name6        quality6
+          name7        quality7
+          name8        quality8
+----------------------------------------
