@@ -13,7 +13,13 @@ csvreader
 
 count=0
 names=[]
-emails=[]
+ages=[]
+sem=[]
+subs = [
+     "BSc. Architectural ","B. Architecture","B.Sc. Chemical Engineering","BSc. Civil Engineering","BSc. City and Regional Planning","BSc. Computer Science","BSc. Electrical Engineering","BSc Geological Engineering","BBA","BBIT","B.Sc Environmental Engineering","B.Sc. Industrial & Manufacturing Engineering","B.Sc. Mechanical Engineering","B.Sc Mechatronics & Control Engineering","BSc. Mining Engineering","B.Sc. Metallurgical and Materials Engineering","BSc. Petroleum & Gas Engineering","BSc. Product and Industrial Design","BSc. Polymer Engineering","B.Sc. TransportationEngineering","BSc. Chemical Engineering","BSc. Electrical Engineering","B.Sc. Chemical Technology","B.Sc. Mechanical Engineering","BSc. Computer Science","BSc. Electrical Engineering","BSc. Electrical Engineering","B.Sc. Mechanical Engineering","BSc. Computer Engineering"
+]
+cgpa=[]
+
 
 print(csvreader)
 for row in csvreader:
@@ -24,14 +30,14 @@ for row in csvreader:
     if count >=1000: break
 
 
-for name in names:
-    email=""
-    email=name.replace(" ","")+"@gmail.com"
-    emails.append(email.lower())
-
+for _ in range(1000):
+    sem.append(str(random.randint(3,9))+"th")
+    ages.append(random.randint(18,30))
+    cgpa.append(round(random.uniform(2.22,4.00),2))
 
 
 driver = webdriver.Chrome( options=option)
+
 
 
 # textboxes = driver.find_elements_by_class_name("quantumWizTextinputPaperinputInput")
@@ -40,10 +46,13 @@ for _ in range(1,10000):
 
     textboxes = driver.find_elements_by_class_name("quantumWizTextinputPaperinputInput")
     radiobuttons = driver.find_elements_by_class_name("appsMaterialWizToggleRadiogroupElContainer")
-    textboxes[0].send_keys(names[_])
-    textboxes[1].send_keys(emails[_])
+    textboxes[0].send_keys(random.choice(names))
+    textboxes[1].send_keys(random.choice(ages))
+    textboxes[2].send_keys(sem[_])
+    textboxes[3].send_keys(random.choice(subs))
+    textboxes[4].send_keys(cgpa[_])
+    driver.implicitly_wait(1000)
     
-    # ch=[2,4,4,5,2,4,4,2,4,3,4]
     ch=[2,7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
     high=[]
     for i in range(1,len(ch)+1  ):
@@ -59,14 +68,14 @@ for _ in range(1,10000):
             sum+=ch[j]
         lower.append(sum)
 
-    for j in range(0,32):
+    for j in range(0,31):
         test=lower[j]
         highs=high[j]
         print(f"{test},{highs}")
         choice = random.randint(test,highs-1)
         choice = random.randint(test,highs-1)
         radiobuttons[choice].click()
-        
+
 
 
     SUBMIT=driver.find_element_by_xpath("//*[contains(text(), 'Submit')]")
